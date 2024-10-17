@@ -7,45 +7,49 @@ using UnityEngine.XR.ARFoundation;
 
 public class ImageTracking : MonoBehaviour
 {
-    [SerializeField] ARTrackedImageManager arTrackedImageManager;
-    [SerializeField] GameObject objectPrefab;
-    GameObject instantiatedObject;
+    [SerializeField] ARTrackedImageManager aRTrackedImageManager;
+    [SerializeField] GameObject spherePrefab;
 
+    GameObject instantiateObject;
     void OnEnable()
     {
-        arTrackedImageManager.trackedImagesChanged += OnImageChanged;
+        aRTrackedImageManager.trackedImagesChanged += OnImageChanged;
     }
 
     void OnDisable()
     {
-        arTrackedImageManager.trackedImagesChanged -= OnImageChanged;
+        aRTrackedImageManager.trackedImagesChanged -= OnImageChanged;
     }
 
     void OnImageChanged(ARTrackedImagesChangedEventArgs eventArgs)
     {
+
         foreach(var trackedImage in eventArgs.added)
         {
             if(trackedImage.referenceImage.name == "Logo_NHL")
             {
-                instantiatedObject = Instantiate(objectPrefab, trackedImage.transform.position,
-                    trackedImage.transform.rotation);
+                instantiateObject = 
+                    Instantiate(spherePrefab, trackedImage.transform.position, trackedImage.transform.rotation);
             }
         }
-
-        foreach (var trackedImage in eventArgs.updated)
+        foreach (var trackedImage in eventArgs.added)
         {
             if (trackedImage.referenceImage.name == "Logo_NHL")
             {
-                instantiatedObject.transform.position = trackedImage.transform.position;
+                instantiateObject.transform.position = trackedImage.transform.position;
             }
         }
 
-        foreach (var trackedImage in eventArgs.removed)
+        foreach (var trackedImage in eventArgs.added)
         {
             if (trackedImage.referenceImage.name == "Logo_NHL")
             {
-                Destroy(instantiatedObject);
+                Destroy(instantiateObject);
             }
         }
+
+
+
+
     }
 }
