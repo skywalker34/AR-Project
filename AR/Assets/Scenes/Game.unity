@@ -5944,6 +5944,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 49d0bb9d49c5e694fb24d6f260aaf053, type: 3}
   - {fileID: 21300000, guid: 869d358119d4e7a4e92c13931ca5defe, type: 3}
   - {fileID: 21300000, guid: b16b07a042e502348a0196a2764df78b, type: 3}
+  currentDiceRoll: 0
+  isMoving: 0
 --- !u!114 &1738943973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6258,7 +6260,7 @@ GameObject:
   - component: {fileID: 1840312966}
   - component: {fileID: 1840312965}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6278,6 +6280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentRoutePos: {fileID: 2015449207}
   steps: 8
+  dice: {fileID: 1738943972}
 --- !u!4 &1840312966
 Transform:
   m_ObjectHideFlags: 0
