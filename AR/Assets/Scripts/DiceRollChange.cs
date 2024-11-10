@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class DiceRollChange : MonoBehaviour
 {
-     public Image image;
-     public List<Sprite> diceChoices;
+    public Image image;
+    public List<Sprite> diceChoices;
 
-     private int counter;
-     private int currentDiceRoll;
+    public int currentDiceRoll;
+    public bool isMoving = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,14 +20,13 @@ public class DiceRollChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    } 
-   
+
+    }
+
     public void DiceRoll()
     {
-         currentDiceRoll = Random.Range(0,6);
-
-          image.sprite = diceChoices[currentDiceRoll];
-          
+        currentDiceRoll = Random.Range(1, 7);
+        image.sprite = diceChoices[currentDiceRoll - 1];
+        isMoving = true;
     }
 }
