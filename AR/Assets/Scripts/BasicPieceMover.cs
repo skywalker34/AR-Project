@@ -16,10 +16,15 @@ public class BasicPieceMover : MonoBehaviour
 
     public DiceRollChange dice;
 
+    //CIRCULAR DEPENDENCY
+    public EnemyPieceMover AI;
+
+    public bool playerTurn = true;
+
     private void Update()
     {
 
-        if (dice.isMoving)
+        if (dice.isMoving && !AI.enemyTurn)
         {
             if (myCoroutine == null)
             {
@@ -64,6 +69,12 @@ public class BasicPieceMover : MonoBehaviour
 
         dice.isMoving = false;
         myCoroutine = null;
+
+        if(steps == 0)
+        {
+            playerTurn = false;
+            AI.enemyTurn = true;
+        }
     }
 
     bool MoveToNextSpace(Vector3 goal)
