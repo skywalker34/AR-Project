@@ -29,8 +29,6 @@ public class BasicPieceMover : MonoBehaviour
             {
                 steps = dice.currentDiceRoll;
                 hasSetNewStep = true;
-                Debug.Log("steps");
-                Debug.Log(steps);
             }
 
             if (routePos + steps < currentRoutePos.stepList.Count)
