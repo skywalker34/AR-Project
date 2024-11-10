@@ -3450,6 +3450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRoutePos: {fileID: 2015449207}
+  routePos: 0
   steps: 0
   player: {fileID: 1840312965}
   enemyTurn: 0
@@ -6402,6 +6403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRoutePos: {fileID: 2015449207}
+  routePos: 0
   steps: 0
   dice: {fileID: 1738943972}
   AI: {fileID: 1105042991}

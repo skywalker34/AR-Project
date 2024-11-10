@@ -6,6 +6,22 @@ public class Route : MonoBehaviour
 {
     Transform[] routeSteps;
     public List<Transform> stepList = new List<Transform>();
+    //public List<Transform> eels = new List<Transform>();
+    //public List<Transform> eelsResult = new List<Transform>();
+    //public List<Transform> escalators = new List<Transform>();
+    //public List<Transform> escalatorsResult = new List<Transform>();
+
+
+    public int[,] eels = new int[5, 2]
+    { {14, 8 }, {28, 15}, {35, 25}, {38, 28}, {51, 34}};
+
+    public int[,] escalators = new int[4, 2]
+    { {3, 18}, {13, 30}, {23, 42}, {37, 48}};
+
+    private void Start()
+    {
+        
+    }
 
     private void OnDrawGizmos()
     {

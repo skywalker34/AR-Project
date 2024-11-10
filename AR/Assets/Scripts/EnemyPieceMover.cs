@@ -6,7 +6,7 @@ public class EnemyPieceMover : MonoBehaviour
 {
     public Route currentRoutePos;
 
-    int routePos;
+    public int routePos;
 
     public int steps;
 
@@ -46,6 +46,12 @@ public class EnemyPieceMover : MonoBehaviour
 
         while (steps > 0)
         {
+            if(routePos == currentRoutePos.stepList.Count - 1)
+            {
+                steps = 0;
+                Debug.LogWarning("AI Wins");
+                break;
+            }
             Vector3 nextPos = currentRoutePos.stepList[routePos + 1].position;
             while (MoveToNextSpace(nextPos)) { yield return null; }
 
@@ -55,8 +61,14 @@ public class EnemyPieceMover : MonoBehaviour
         }
         isMoving=false;
 
-        if(steps == 0)
+        if(steps == 0 && enemyTurn && routePos != currentRoutePos.stepList.Count - 1)
         {
+            if(!IsInvoking("SpaceJudge"))
+            {
+                Debug.LogWarning("I SHOULD BE INVOKING");
+                Invoke("SpaceJudge", 0.1f);
+            }
+
             enemyTurn = false;
             player.playerTurn = true;
         }
@@ -65,5 +77,33 @@ public class EnemyPieceMover : MonoBehaviour
     bool MoveToNextSpace(Vector3 goal)
     {
         return goal != (transform.position = Vector3.MoveTowards(transform.position, goal, 10.0f*Time.deltaTime));
+    }
+
+    void SpaceJudge()
+    {
+        for (int i = 0; i <= currentRoutePos.eels.GetLength(0) - 1; i++)
+        {
+            //Debug.LogWarning(i + " " + currentRoutePos.eels2[i, 0] + " " + currentRoutePos.eels2[i, 1]);
+            //Debug.LogWarning(routePos + " " + currentRoutePos.eels2[i, 0]);
+            //Debug.LogWarning(currentRoutePos.stepList.Count);
+            if (routePos == currentRoutePos.eels[i, 0])
+            {
+                //Debug.LogWarning(currentRoutePos.stepList[currentRoutePos.eels2[i, 1]]);
+                Vector3 nextPos = currentRoutePos.stepList[currentRoutePos.eels[i, 1]].position;
+                transform.position = nextPos;
+                routePos = currentRoutePos.eels[i, 1];
+            }
+        }
+
+        for (int i = 0; i <= currentRoutePos.escalators.GetLength(0) - 1; i++)
+        {
+            //Debug.LogWarning(i + " " + currentRoutePos.escalators[i, 0] + " " + currentRoutePos.escalators[i, 1]);
+            if (routePos == currentRoutePos.escalators[i, 0])
+            {
+                Vector3 nextPos = currentRoutePos.stepList[currentRoutePos.escalators[i, 1]].position;
+                transform.position = nextPos;
+                routePos = currentRoutePos.escalators[i, 1];
+            }
+        }
     }
 }
